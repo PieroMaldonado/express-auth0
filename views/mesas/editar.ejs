@@ -1,0 +1,35 @@
+<%- include ../layouts/header.ejs%>
+<br/><br/>
+<div class="card">
+    <div class="card-header">
+        Formulario de captura
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Editar datos de mesa</h5>
+        <p class="card-text">
+            <form method="post" action="../actualizar/">
+                <input type="hidden" name="id" value="<%=mesa.id%>">
+                <div class="form-group">
+                    <label for="my-input">Numero Mesa</label>
+                    <input id="my-input" value="<%=mesa.numeroMesa%>" class="form-control" type="text" name="numeroMesa">
+                </div>
+                <div class="form-group">
+                    <label for="my-input">Ubicación</label>
+                    <input id="my-input" value="<%=mesa.ubicacionReferencia%>" class="form-control" type="text" name="ubicacionReferencia">
+                </div>
+                <div class="form-group">
+                    <label for="my-input">Estado</label>
+                    <input id="my-input" value="<%=mesa.estado%>" class="form-control" type="text" name="estado">
+                </div>
+                <div class="form-group">
+                    <label for="my-input">Capacidad</label>
+                    <input id="my-input" value="<%=mesa.capacidad%>" class="form-control" type="text" name="capacidad">
+                </div>
+                <button class="btn btn-success" type="submit">Actualizar</button>
+                <a class="btn btn-primary" href="/mesas">Cancelar</a>
+            </form>
+        </p>
+    </div>
+</div>
+
+<%- include ../layouts/footer.ejs%>

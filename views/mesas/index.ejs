@@ -1,0 +1,44 @@
+<%- include ../layouts/header.ejs%>
+        <br/>
+        <br/>
+        <a href="/mesas/crear" class="btn btn-primary" type="button">Crear nueva Mesa</a>
+        <a href="/" class="btn btn-primary">Home</a>
+        <br/>
+        <br/>
+        <table class="table table-light">
+            <thead class="thead-light">
+                <tr>
+                    <th>#</th>
+                    <th>Numero Mesa</th>
+                    <th>Ubicación Referencia</th>
+                    <th>Estado</th>
+                    <th>Capacidad</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for( let mesa = 0; mesa < mesas.length; mesa++ ) { %>
+                    <tr>
+                        <td> <%=mesas[mesa].id%> </td>
+                        <td> <%=mesas[mesa].numeroMesa%> </td>
+                        <td> <%=mesas[mesa].ubicacionReferencia%> </td>
+                        <td> <%=mesas[mesa].estado%> </td>
+                        <td> <%=mesas[mesa].capacidad%> </td>
+                        <td>
+                            <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                                <form class="form-inline" method="get" action="/mesas/editar/<%=mesas[mesa].id%>">
+                                    <button class="btn btn-warning" type="submit">Editar</button>
+                                </form>
+                            </div>
+
+                            <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                                <form class="form-inline" method="post" action="/mesas/eliminar/<%=mesas[mesa].id%>">
+                                    <button class="btn btn-danger" type="submit">Borrar</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+<%- include ../layouts/footer.ejs%>

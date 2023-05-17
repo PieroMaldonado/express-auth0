@@ -1,0 +1,32 @@
+<%- include ../layouts/header.ejs%>
+<br/><br/>
+<div class="card">
+    <div class="card-header">
+        Formulario de captura
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Datos del pedido</h5>
+        <p class="card-text">
+
+            <form method="post" action="/pedidos/<%=reservas[0].id%>">
+                <div class="form-group">
+                    <label for="my-input">Reserva ID</label>
+                    <input id="my-input" class="form-control" type="text" name="reservaID" value='<%=reservas[0].id%>' disabled>
+                </div>
+
+                <label for="my-input">Producto</label>
+                <div>
+                    <select class="form-select" aria-label="Default select example" name="productoID" id="my-input">
+                        <% for( let i = 0; i < productos.length; i++ ) { %>
+                            <option value='<%= i %>'> <%=productos[i].nombre%> - $<%=productos[i].precio%> </option>
+                        <% } %>
+                    </select>
+                </div><br>
+                
+                <button class="btn btn-success" type="submit">Guardar</button>
+                <a class="btn btn-primary" href="/pedidos/<%=reservas[0].id%>">Cancelar</a>
+            </form>
+        </p>
+    </div>
+</div>
+<%- include ../layouts/footer.ejs%>

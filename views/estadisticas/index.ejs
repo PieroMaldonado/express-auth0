@@ -1,0 +1,97 @@
+<%- include ../layouts/header.ejs%>
+        <br/>
+        <br/>
+        
+        <a href="/" class="btn btn-warning">Volver</a>
+        <br/>
+        <br/>
+        <label for="my-input">PRODUCTOS MÁS PEDIDOS</label>
+        <table class="table table-light">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Nombre Producto</th>
+                        <th>Cantidad</th>
+                        <!-- <th>Cantidad de dinero generada</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                        <% for( let pedido = 0; pedido < pedidos.length; pedido++ ) { %>
+                            <tr>
+                                <td> <%=productos[pedidos[pedido].id].nombre%> </td>
+                                <td><%=pedidos[pedido].total%></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+        </table>
+        <br><br><br>
+        <label for="my-input">PRODUCTOS QUE MÁS INGRESOS GENERARON</label>
+        <table class="table table-light">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Nombre Producto</th>
+                        <th>Ingresos Total</th>
+                        <th>Cantidad vendida</th>
+                        <!-- <th>Cantidad de dinero generada</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                        <% for( let precio = 0; precio < precios.length; precio++ ) { %>
+                            <tr>
+                                <td> <%=productos[precios[precio].item.id].nombre%> </td>
+                                <td>$<%=precios[precio].precio%></td>
+                                <td><%=precios[precio].item.total%></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+        </table>
+        <br><br><br>
+        <label for="my-input">MESAS MENOS RESERVADAS</label>
+        <table class="table table-light">
+                <thead class="thead-light">
+                    <tr>
+                        <th># Mesa</th>
+                        <th>Ubicación</th>
+                        <th>Cantidad reservas</th>
+                        <th>Capacidad</th>
+                        <!-- <th>Cantidad de dinero generada</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                        <% for( let reserva = 0; reserva < reservas.length; reserva++ ) { %>
+                            <tr>
+                                <td> #<%=mesas[reservas[reserva].id].numeroMesa%> </td>
+                                <td> <%=mesas[reservas[reserva].id].ubicacionReferencia%> </td>
+                                <td> <%=reservas[reserva].total%> </td>
+                                <td> <%=mesas[reservas[reserva].id].capacidad%> Personas</td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+        </table>
+        <br><br><br>
+        <form method="post" action="/estadisticas">
+            <label for="my-input">Cantidad de reservas por cliente</label>
+            <div class="form-group">
+                <label for="my-input">Filtrar por fecha</label>
+                <input id="datepickerfrom" name="fecha" width="250" type="date" required />
+                <button class="btn btn-success" type="submit">Filtrar</button>
+            </div>
+            <table class="table table-light">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Cantidad de reservas</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <% for( let i = 0; i < cantidadReservas.length; i++ ) { %>
+                                <tr>
+                                    <td> <%=clientes[cantidadReservas[i].clienteID].nombre%> </td>
+                                    <td> <%=cantidadReservas[i].item.total%> </td>
+                                    <td> <%=moment(cantidadReservas[i].fecha).utc().format('YYYY-MM-DD')%> </td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+            </table>
+        </form>
+<%- include ../layouts/footer.ejs%>

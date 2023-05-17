@@ -1,0 +1,23 @@
+<%- include ../layouts/header.ejs%>
+<br/><br/>
+<div class="card">
+    <div class="card-header">
+        Formulario de captura
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Editar datos de Producto</h5>
+        <p class="card-text">
+            <form method="post" action="../actualizar/">
+                <input type="hidden" name="id" value="<%=categoria.id%>">
+                <div class="form-group">
+                    <label for="my-input">Categoría</label>
+                    <input id="my-input" value="<%=categoria.categoria%>" class="form-control" type="text" name="categoria">
+                </div>
+                <button class="btn btn-success" type="submit">Actualizar</button>
+                <a class="btn btn-primary" href="/categorias">Cancelar</a>
+            </form>
+        </p>
+    </div>
+</div>
+
+<%- include ../layouts/footer.ejs%>

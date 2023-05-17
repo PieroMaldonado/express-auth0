@@ -1,0 +1,51 @@
+<%- include ../layouts/header.ejs%>
+<br/><br/>
+<div class="card">
+    <div class="card-header">
+        Formulario de captura
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Datos de la reserva</h5>
+        <p class="card-text">
+
+            <form method="post" action="/reservas">
+                
+                <div class="form-group">
+                    <label for="my-input">Fecha</label>
+                    <input id="datepickerfrom" name="fecha" width="250" type="date" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="my-input">Hora</label>
+                    <input type="time" id="appt" name="hora" min="09:00" max="20:00" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="my-input"># Personas</label>
+                    <input id="my-input" class="form-control" type="number" name="numPersonas" min="1" max="8">
+                </div>
+
+                <label for="my-input">Mesa</label>
+                <div>
+                    <select class="form-select" aria-label="Default select example" name="mesaID" id="my-input">
+                        <% for( let i = 0; i < mesas.length; i++ ) { %>
+                            <option value='<%= i %>'> #<%=mesas[i].numeroMesa%> - Ubicación: <%=mesas[i].ubicacionReferencia%> - Capacidad: <%=mesas[i].capacidad%></option>
+                        <% } %>
+                    </select>
+                </div><br>
+
+                <label for="my-input">Cliente</label>
+                <div>
+                    <select class="form-select" aria-label="Default select example" name="clienteID" id="my-input">
+                        <% for( let i = 0; i < clientes.length; i++ ) { %>
+                            <option value='<%= i %>'> <%=clientes[i].nombre%> <%=clientes[i].apellido%> - C.I: <%=clientes[i].cedula%></option>
+                        <% } %>
+                    </select>
+                </div><br>
+                <button class="btn btn-success" type="submit">Guardar</button>
+                <a class="btn btn-primary" href="/reservas">Cancelar</a>
+            </form>
+        </p>
+    </div>
+</div>
+<%- include ../layouts/footer.ejs%>

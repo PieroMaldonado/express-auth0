@@ -1,0 +1,52 @@
+<%- include ../layouts/header.ejs%>
+        <br/>
+        <br/>
+        <a href="/pedidos/crear/<%=reservas[0].id%>" class="btn btn-primary" type="button">Crear nuevo Pedido</a>
+        <a href="/reservas" class="btn btn-warning">Volver</a>
+        <br/>
+        <br/>
+        <table class="table table-light">
+            <thead class="thead-light">
+                <tr>
+                    <th>#</th>
+                    <th># Reserva</th>
+                    <th>Cliente</th>
+                    <th>Producto</th>
+                    <!-- <th>Cantidad</th> -->
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for( let pedido = 0; pedido < pedidos.length; pedido++ ) { %>
+                    <%if(pedidos[pedido].reservaID == reservas[0].id){%>
+                    <tr>
+                        <td> <%=pedidos[pedido].id%> </td>
+                        <td> <%=reservas[0].id%> </td>
+                        <td> <%=clientes[reservas[0].clienteID].cedula%> </td>
+                        <td> <%=productos[pedidos[pedido].productoID].nombre%> </td>
+                        <td> <%=productos[pedidos[pedido].productoID].precio%> </td>
+                        <td>
+                            <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                                <form class="form-inline" method="get" action="/pedidos/editar/<%=pedidos[pedido].id%>">
+                                    <button class="btn btn-warning" type="submit">Editar</button>
+                                </form>
+                            </div>
+
+                            <!-- <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                                <form class="form-inline" method="get" action="/reservas/editar/<%=pedidos[pedido].id%>">
+                                    <button class="btn btn-warning" type="submit">Ver pedidos</button>
+                                </form>
+                            </div> -->
+
+                            <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                                <form class="form-inline" method="post" action="/pedidos/eliminar/<%=pedidos[pedido].id%>">
+                                    <button class="btn btn-danger" type="submit">Borrar</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    <%}%>
+                <% } %>
+            </tbody>
+        </table>
+<%- include ../layouts/footer.ejs%>

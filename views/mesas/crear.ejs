@@ -1,0 +1,38 @@
+<%- include ../layouts/header.ejs%>
+<br/><br/>
+<div class="card">
+    <div class="card-header">
+        Formulario de captura
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Datos de la mesa</h5>
+        <p class="card-text">
+
+            <form method="post" action="/mesas">
+                <div class="form-group">
+                    <label for="my-input">Número Mesa</label>
+                    <input id="my-input" class="form-control" type="text" name="numeroMesa">
+                </div>
+                <!-- <div class="form-group">
+                    <label for="my-input">Imagen</label>
+                    <input id="my-input" class="form-control-file" type="file" name="archivo">
+                </div> -->
+                <div class="form-group">
+                    <label for="my-input">Ubicación Referencia</label>
+                    <input id="my-input" class="form-control" type="text" name="ubicacionReferencia">
+                </div>
+                <div class="form-group">
+                    <label for="my-input">Estado</label>
+                    <input id="my-input" class="form-control" type="text" name="estado">
+                </div>
+                <div class="form-group">
+                    <label for="my-input">Capacidad</label>
+                    <input id="my-input" class="form-control" type="text" name="capacidad">
+                </div>
+                <button class="btn btn-success" type="submit">Guardar</button>
+                <a class="btn btn-primary" href="/mesas">Cancelar</a>
+            </form>
+        </p>
+    </div>
+</div>
+<%- include ../layouts/footer.ejs%>
