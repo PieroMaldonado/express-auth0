@@ -18,6 +18,14 @@
                     <a href="/categorias" class="btn btn-primary">Administrar Categorias</a>
                     <a href="/reservas" class="btn btn-primary">Administrar Reservas</a>
                     <br><br><a href="/estadisticas" class="btn btn-primary">Mostrar estadísticas</a>
+                    <br><br>
+                    <% if (user) { %>
+                        <p>User Name: <%= user.name %></p>
+                        <p>User Email: <%= user.email %></p>
+                        <!-- Otras propiedades del usuario -->
+                      <% } else { %>
+                        <p>User not logged in</p>
+                      <% } %>
             </div>
         </div>
     </div>
