@@ -4,15 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var moment = require('moment'); 
-
 const cookieSession = require('cookie-session');
-
 const flash = require('connect-flash');
 const session = require('express-session');
-const { auth } = require('express-openid-connect');
-
-
-
+const { auth, requiresAuth } = require('express-openid-connect');
+const indexController = require("./controllers/indexController");
 var app = express();
 
 const port = 4000; // 
@@ -30,22 +26,10 @@ const config = {
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
 
-app.get('/', (req, res) => {
-  if (req.oidc.isAuthenticated()) {
-    res.redirect('/home'); // Redirige a la vista home del authRouter
-  } else {
-    // res.send('Logged out');
-    res.redirect('/login')
-  }
-});
-
 // Ruta para la vista home del authRouter
-app.get('/home', (req, res) => {
-  res.render('home'); // Aquí debes reemplazar 'home' con el nombre de la plantilla o vista que deseas renderizar
-});
+app.get('/home', requiresAuth(), indexController.home);
 
-
-// var authRouter = require('./routes/auth');
+var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var mesasRouter = require('./routes/mesas');
 var clientesRouter = require('./routes/clientes');
@@ -86,7 +70,7 @@ app.use(session({
 // app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/', indexRouter);
+app.use('/', indexRouter);
 // app.use('/', authRouter);
 app.use('/users', usersRouter);
 app.use('/mesas', mesasRouter);
