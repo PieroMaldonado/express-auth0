@@ -11,7 +11,7 @@ const { auth, requiresAuth } = require('express-openid-connect');
 const indexController = require("./controllers/indexController");
 var app = express();
 
-const port = 4000; // 
+const port = process.env.Port || 4000; // 
 app.set('port', port);
 
 const config = {
