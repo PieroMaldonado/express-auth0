@@ -18,7 +18,7 @@ const config = {
   authRequired: false,
   auth0Logout: true,
   secret: 'l79hsux4xgsipmwsisnxa7mu13c04hbrxjfe6ohvg3s6n3d4od2400031hx89tq1z1spq7xsc1epwfwlo74vfqgxqrh0xgpoujyn',
-  baseURL: 'http://localhost:4000',
+  baseURL: 'https://express-auth0.onrender.com',
   clientID: 'oaochaXi3tMMVJfAxis92KwJRFEejpcp',
   issuerBaseURL: 'https://dev-0giiekio4xgysadj.us.auth0.com'
 };
