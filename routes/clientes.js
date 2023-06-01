@@ -3,9 +3,10 @@ var router = express.Router();
 const clientesController = require("../controllers/clientesController");
 const {body} = require('express-validator');
 const { requiresAuth } = require('express-openid-connect');
+const requireRole = require('../middleware/requireRole'); // Importa el middleware de autorización personalizado
 
 /* GET home page. */
-router.get('/',requiresAuth(), clientesController.index);
+router.get('/',requiresAuth(),requireRole('user'), clientesController.index);
 router.get('/crear',requiresAuth(),clientesController.crear);
 router.post("/",
 [
