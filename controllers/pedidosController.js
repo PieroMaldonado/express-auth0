@@ -14,7 +14,7 @@ module.exports={
             reserva.retornarDatosID(conexion,req.params.id,function(err, datos2){
                 producto.obtener(conexion, function(err, datos3){
                     cliente.obtener(conexion,function(err, datos4){
-                        res.render('pedidos/index', {title: 'Aplicación', pedidos: datos, reservas: datos2, productos: datos3 , clientes: datos4});
+                        res.render('pedidos/index', {title: 'Aplicación', req, pedidos: datos, reservas: datos2, productos: datos3 , clientes: datos4});
                     })
                 })
             })

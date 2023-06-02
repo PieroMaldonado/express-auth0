@@ -3,25 +3,26 @@ var router = express.Router();
 const pedidosController = require("../controllers/pedidosController");
 const {body} = require('express-validator');
 const { requiresAuth } = require('express-openid-connect');
+const requireRole = require('../middleware/requireRole'); // Importa el middleware de autorización personalizado
 
 /* GET home page. */
-router.get('/:id', requiresAuth(),pedidosController.index);
-router.get('/crear/:id',requiresAuth(),pedidosController.crear);
-router.post("/:id",requiresAuth(),
+router.get('/:id', requiresAuth(),requireRole('admin'),pedidosController.index);
+router.get('/crear/:id',requiresAuth(),requireRole('admin'),pedidosController.crear);
+router.post("/:id",requiresAuth(),requireRole('admin'),
 // [
 //     body('fecha')
 //     .notEmpty()
 //     .withMessage('Debe ingresar una fecha')
 // ],
 pedidosController.guardar);
-router.post('/eliminar/:id',requiresAuth(),pedidosController.eliminar);
-router.get('/editar/:id',requiresAuth(),pedidosController.editar);
+router.post('/eliminar/:id',requiresAuth(),requireRole('admin'),pedidosController.eliminar);
+router.get('/editar/:id',requiresAuth(),requireRole('admin'),pedidosController.editar);
 router.post("/actualizar",
 [
     body('reservaID')
     .notEmpty()
     .withMessage('Debe ingresar una reserva')
-],requiresAuth(),
+],requiresAuth(),requireRole('admin'),
 pedidosController.actualizar);
 
 module.exports = router;
