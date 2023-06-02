@@ -6,7 +6,7 @@ const { validationResult } = require('express-validator');
 module.exports={
     index:function (req,res){
         mesa.obtener(conexion, function(err,datos){
-            res.render('mesas/index', {title: 'Aplicación', mesas: datos });
+            res.render('mesas/index', {title: 'Aplicación', req, mesas: datos });
         });
     },
     crear:function (req,res){
