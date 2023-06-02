@@ -10,7 +10,7 @@ module.exports={
         reserva.obtener(conexion, function(err,datos){
             mesa.obtener(conexion, function(err, datos2){
                 cliente.obtener(conexion, function(err, datos3){
-                    res.render('reservas/index', {title: 'Aplicación', reservas: datos, mesas: datos2, clientes: datos3 });
+                    res.render('reservas/index', {title: 'Aplicación', req, reservas: datos, mesas: datos2, clientes: datos3 });
                 })
             })
         });
@@ -31,14 +31,12 @@ module.exports={
             res.render('reservas/crear', {messages: req.flash()});
             return;
         }
-        console.log(req.body)
         reserva.insertar(conexion, req.body, function(err){
             res.redirect('/reservas');
         });
     },
     eliminar:function (req,res){
         console.log("Recepción de datos");
-        console.log(req.params.id);
         reserva.retornarDatosID(conexion,req.params.id, function(err,registros){
             reserva.borrar(conexion, req.params.id, function(err){
                 res.redirect('/reservas');
@@ -47,7 +45,6 @@ module.exports={
     },
     editar:function(req,res){
         reserva.retornarDatosID(conexion,req.params.id,function(err,registros){
-            //console.log(registros[0]);
             res.render('reservas/editar', {reserva:registros[0]});
         });
     },

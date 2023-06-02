@@ -1,7 +1,9 @@
 <%- include ../layouts/header.ejs%>
         <br/>
         <br/>
-        <a href="/reservas/crear" class="btn btn-primary" type="button">Crear nueva Reserva</a>
+        <% if (req && req.oidc.user && req.oidc.user.rol && req.oidc.user.rol.includes('admin')) { %>
+            <a href="/reservas/crear" class="btn btn-primary" type="button">Crear nueva Reserva</a>
+        <% } %>
         <a href="/" class="btn btn-primary">Home</a>
         <br/>
         <br/>
@@ -14,14 +16,15 @@
                     <th># Personas</th>
                     <th># Mesa</th>
                     <th>Ubicación Mesa</th>
-                    <th>Cliente</th>
-                    <th>Cédula</th>
+                    <% if (req && req.oidc.user && req.oidc.user.rol && req.oidc.user.rol.includes('admin')) { %>
+                        <th>Cliente</th>
+                        <th>Cédula</th>
+                    <% } %>
                 </tr>
             </thead>
             <tbody>
                 <% for( let reserva = 0; reserva < reservas.length; reserva++ ) { %>
                     <% if(reservas[reserva] != null){%>
-                        <% console.log(reservas[reserva].id)%>
                     <tr>
                         <td> <%=reservas[reserva].id%> </td>
                         <td> <%=reservas[reserva].fecha%> </td>
@@ -29,31 +32,32 @@
                         <td> <%=reservas[reserva].numPersonas%> </td>
                         <td> <%=mesas[reservas[reserva].mesaID].numeroMesa%> </td>
                         <td> <%=mesas[reservas[reserva].mesaID].ubicacionReferencia%> </td> 
-                    
-                        <% if(clientes[reservas[reserva].clienteID] != null){%>
-                            
-                            <td> <%=clientes[reservas[reserva].clienteID].nombre%> <%=clientes[reservas[reserva].clienteID].apellido%></td>  
-                            <td> <%=clientes[reservas[reserva].clienteID].cedula%> </td>  
+                        <% if (req && req.oidc.user && req.oidc.user.rol && req.oidc.user.rol.includes('admin')) { %>
+                            <% if(clientes[reservas[reserva].clienteID] != null){%>
+                                
+                                <td> <%=clientes[reservas[reserva].clienteID].nombre%> <%=clientes[reservas[reserva].clienteID].apellido%></td>  
+                                <td> <%=clientes[reservas[reserva].clienteID].cedula%> </td>  
+                            <% } %>
+                            <td>
+                                <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                                    <form class="form-inline" method="get" action="/reservas/editar/<%=reservas[reserva].id%>">
+                                        <button class="btn btn-warning" type="submit">Editar</button>
+                                    </form>
+                                </div>
+
+                                <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                                    <form class="form-inline" method="get" action="/pedidos/<%=reservas[reserva].id%>">
+                                        <button class="btn btn-success" type="submit">Ver pedidos</button>
+                                    </form>
+                                </div>
+
+                                <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                                    <form class="form-inline" method="post" action="/reservas/eliminar/<%=reservas[reserva].id%>">
+                                        <button class="btn btn-danger" type="submit">Borrar</button>
+                                    </form>
+                                </div>
+                            </td>
                         <% } %>
-                        <td>
-                            <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                                <form class="form-inline" method="get" action="/reservas/editar/<%=reservas[reserva].id%>">
-                                    <button class="btn btn-warning" type="submit">Editar</button>
-                                </form>
-                            </div>
-
-                            <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                                <form class="form-inline" method="get" action="/pedidos/<%=reservas[reserva].id%>">
-                                    <button class="btn btn-success" type="submit">Ver pedidos</button>
-                                </form>
-                            </div>
-
-                            <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                                <form class="form-inline" method="post" action="/reservas/eliminar/<%=reservas[reserva].id%>">
-                                    <button class="btn btn-danger" type="submit">Borrar</button>
-                                </form>
-                            </div>
-                        </td>
                     </tr>
                     <% } %>
                 <% } %>
