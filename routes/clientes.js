@@ -6,23 +6,23 @@ const { requiresAuth } = require('express-openid-connect');
 const requireRole = require('../middleware/requireRole'); // Importa el middleware de autorización personalizado
 
 /* GET home page. */
-router.get('/',requiresAuth(),requireRole('user'), clientesController.index);
-router.get('/crear',requiresAuth(),clientesController.crear);
+router.get('/',requiresAuth(),requireRole('admin'), clientesController.index);
+router.get('/crear',requiresAuth(),requireRole('admin'),clientesController.crear);
 router.post("/",
 [
     body('nombre')
     .notEmpty()
     .withMessage('Debe ingresar un nombre')
-],requiresAuth(),
+],requiresAuth(),requireRole('admin'),
 clientesController.guardar);
-router.post('/eliminar/:id',requiresAuth(), clientesController.eliminar);
-router.get('/editar/:id',requiresAuth(), clientesController.editar);
-router.post("/actualizar",requiresAuth(),
+router.post('/eliminar/:id',requiresAuth(),requireRole('admin'), clientesController.eliminar);
+router.get('/editar/:id',requiresAuth(),requireRole('admin'), clientesController.editar);
+router.post("/actualizar",requiresAuth(),requireRole('admin'),
 [
     body('nombre')
     .notEmpty()
     .withMessage('Debe ingresar un nombre')
-],requiresAuth(),
+],requiresAuth(),requireRole('admin'),
 clientesController.actualizar);
 
 module.exports = router;
