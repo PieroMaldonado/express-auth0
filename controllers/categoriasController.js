@@ -6,7 +6,7 @@ const { validationResult } = require('express-validator');
 module.exports={
     index:function (req,res){
         categoria.obtener(conexion, function(err,datos){
-            res.render('categorias/index', {title: 'Aplicación', categorias: datos });
+            res.render('categorias/index', {title: 'Aplicación', req, categorias: datos });
         });
     },
     crear:function (req,res){

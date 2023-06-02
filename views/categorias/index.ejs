@@ -1,7 +1,9 @@
 <%- include ../layouts/header.ejs%>
         <br/>
         <br/>
-        <a href="/categorias/crear" class="btn btn-primary" type="button">Registrar nueva Categoria</a>
+        <% if (req && req.oidc.user && req.oidc.user.rol && req.oidc.user.rol.includes('admin')) { %>
+            <a href="/categorias/crear" class="btn btn-primary" type="button">Registrar nueva Categoria</a>
+        <% } %>
         <a href="/" class="btn btn-primary">Home</a>
         <br/>
         <br/>
@@ -10,7 +12,9 @@
                 <tr>
                     <th>#</th>
                     <th>Categoria</th>
-                    <th>Acciones</th>
+                    <% if (req && req.oidc.user && req.oidc.user.rol && req.oidc.user.rol.includes('admin')) { %>
+                        <th>Acciones</th>
+                    <% } %>
                 </tr>
             </thead>
             <tbody>
@@ -18,18 +22,20 @@
                     <tr>
                         <td> <%=categorias[categoria].id%> </td>
                         <td> <%=categorias[categoria].categoria%> </td>
-                        <td>
-                            <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                                <form class="form-inline" method="get" action="/categorias/editar/<%=categorias[categoria].id%>">
-                                    <button class="btn btn-warning" type="submit">Editar</button>
-                                </form>
-                            </div>
-                            <!-- <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                                <form class="form-inline" method="post" action="/categorias/eliminar/<%=categorias[categoria].id%>">
-                                    <button class="btn btn-danger" type="submit">Borrar</button>
-                                </form>
-                            </div> -->
-                        </td>
+                        <% if (req && req.oidc.user && req.oidc.user.rol && req.oidc.user.rol.includes('admin')) { %>
+                            <td>
+                                <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                                    <form class="form-inline" method="get" action="/categorias/editar/<%=categorias[categoria].id%>">
+                                        <button class="btn btn-warning" type="submit">Editar</button>
+                                    </form>
+                                </div>
+                                <!-- <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                                    <form class="form-inline" method="post" action="/categorias/eliminar/<%=categorias[categoria].id%>">
+                                        <button class="btn btn-danger" type="submit">Borrar</button>
+                                    </form>
+                                </div> -->
+                            </td>
+                        <% } %>
                     </tr>
                 <% } %>
             </tbody>
