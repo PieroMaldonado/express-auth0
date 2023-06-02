@@ -1,6 +1,6 @@
 module.exports = {
   index: function (req, res) {
-    res.render('index');
+    res.render('index',{ req: req });
   },
   login: function (req, res) {
     res.oidc.login({
@@ -8,6 +8,6 @@ module.exports = {
     });
   },
   home: function (req, res) {
-    res.render('home', { user: req.oidc.user });
-  }
+    res.render('home', { req: req, user: req.oidc.user });
+  }  
 };
