@@ -1,7 +1,9 @@
 <%- include ../layouts/header.ejs%>
         <br/>
         <br/>
-        <a href="/productos/crear" class="btn btn-primary" type="button">Registrar nuevo Producto</a>
+        <% if (req && req.oidc.user && req.oidc.user.rol && req.oidc.user.rol.includes('admin')) { %>
+            <a href="/productos/crear" class="btn btn-primary" type="button">Registrar nuevo Producto</a>
+        <% } %>
         <a href="/" class="btn btn-primary">Home</a>
         <br/>
         <br/>
@@ -13,7 +15,9 @@
                     <th>Descripción</th>
                     <th>Categoria</th>
                     <th>Precio</th>
-                    <th>Acciones</th>
+                    <% if (req && req.oidc.user && req.oidc.user.rol && req.oidc.user.rol.includes('admin')) { %>
+                        <th>Acciones</th>
+                    <% } %>
                 </tr>
             </thead>
             <tbody>
@@ -24,20 +28,22 @@
                         <td> <%=productos[producto].descripcion%> </td>
                         <td> <%=categorias[productos[producto].categoria].categoria%> </td>  
                         <td> $ <%=productos[producto].precio%> </td>
-                        <td>
-                            <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                                <form class="form-inline" method="get" action="/productos/editar/<%=productos[producto].id%>">
+                        <% if (req && req.oidc.user && req.oidc.user.rol && req.oidc.user.rol.includes('admin')) { %>
+                            <td>
+                                <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                                    <form class="form-inline" method="get" action="/productos/editar/<%= productos[producto].id %>">
                                     <button class="btn btn-warning" type="submit">Editar</button>
-                                </form>
-                            </div>
-                            <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                                <form class="form-inline" method="post" action="/productos/eliminar/<%=productos[producto].id%>">
+                                    </form>
+                                </div>
+                                <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                                    <form class="form-inline" method="post" action="/productos/eliminar/<%= productos[producto].id %>">
                                     <button class="btn btn-danger" type="submit">Borrar</button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                <% } %>
-            </tbody>
-        </table>
+                                    </form>
+                                </div>
+                            </td>
+                        <% } %>
+                        </tr>
+                    <% } %>
+                    </tbody>
+                </table>
 <%- include ../layouts/footer.ejs%>

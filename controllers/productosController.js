@@ -8,7 +8,7 @@ module.exports={
     index:function (req,res){
         producto.obtener(conexion, function(err,datos){
             categoria.obtener(conexion, function(err, datos2){
-                res.render('productos/index', {title: 'Aplicación', productos: datos, categorias: datos2});
+                res.render('productos/index', {title: 'Aplicación', req, productos: datos, categorias: datos2});
             })
             // res.render('productos/index', {title: 'Aplicación', productos: datos});
         });
