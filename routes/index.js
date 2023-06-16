@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 const indexController = require("../controllers/indexController");
 const { requiresAuth } = require('express-openid-connect');
+const {body} = require('express-validator');
+const requireRole = require('../middleware/requireRole'); // Importa el middleware de autorización personalizado
 
 // GET home page
 router.get('/', (req, res, next) => {
@@ -13,5 +15,13 @@ router.get('/', (req, res, next) => {
 
 // Route for login
 router.get('/login', requiresAuth(), indexController.login);
+
+router.post("/",
+[
+    body('cedula')
+    .notEmpty()
+    .withMessage('Debe ingresar una cédula')
+],requiresAuth(),requireRole('user'),
+indexController.encryptData);
 
 module.exports = router;
