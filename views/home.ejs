@@ -19,7 +19,6 @@
                     <a href="/productos" class="btn btn-primary">Administrar Productos</a>
                     <a href="/categorias" class="btn btn-primary">Administrar Categorias</a>
                     <a href="/reservas" class="btn btn-primary">Administrar Reservas</a>
-                    <a href="/kms" class="btn btn-secondary">Test KMS</a>
                     <% if (req && req.oidc.user && req.oidc.user.rol.includes('admin')) { %>
                         <br><br><a href="/estadisticas" class="btn btn-primary">Mostrar estadísticas</a>
                     <% } %>

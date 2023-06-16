@@ -21,7 +21,7 @@ router.post("/",
     body('cedula')
     .notEmpty()
     .withMessage('Debe ingresar una cédula')
-],requiresAuth(),requireRole('admin'),
+],requiresAuth(),
 indexController.encryptData);
 
 module.exports = router;
