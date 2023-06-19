@@ -41,7 +41,7 @@ module.exports = {
     console.log("Cédula: ",req.body.cedula)
     console.log(`Cédula encriptada: ${ciphertext.toString('base64')}`);
     
-    const url = `http://localhost:7019/api/controladorAPI/validarCedula?cedula=${ciphertext.toString('base64')}`;
+    const url = `https://crudempresasapi.azurewebsites.net/api/controladorAPI/validarCedula?cedula=${ciphertext.toString('base64')}`;
 
     try {
       const response = await fetch(url);
@@ -56,7 +56,7 @@ module.exports = {
   decryptData: async function (req, res) {
     const [decryptResponse] = await client.decrypt({
       name: keyName,
-      ciphertext: "CiQAMHJPkIi8vU4qMy1fB22QYzek3KigEnng+Vdukn0kcLEif/QSLQBh0Rhfw8ylRQVuKWN0029mavdX8wVd9l8qZVKB3eVC1IIrESjmRB59aFI23g==",
+      ciphertext: "",
     });
 
   
