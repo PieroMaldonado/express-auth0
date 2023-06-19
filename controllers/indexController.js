@@ -10,6 +10,7 @@ const keyRingId = process.env.keyRingId;
 const keyId = process.env.keyId;
 const versionId = '1';
 
+
 // Build the key name
 const keyName = client.cryptoKeyPath(projectId, locationId, keyRingId, keyId);
 
@@ -28,33 +29,34 @@ module.exports = {
   },
 
   encryptData: async function (req, res) {
-    const cedula = req.body.cedula;
+
+    const plaintextBuffer = Buffer.from(req.body.cedula);
     
     const [encryptResponse] = await client.encrypt({
       name: keyName,
-      plaintext: cedula,
+      plaintext: plaintextBuffer,
     });
   
     const ciphertext = encryptResponse.ciphertext;
     console.log("Cédula: ",req.body.cedula)
     console.log(`Cédula encriptada: ${ciphertext.toString('base64')}`);
-    res.send(ciphertext.toString('base64'))
-    // const url = `https://crudempresasapi.azurewebsites.net/api/controladorAPI/validarCedula?cedula=${ciphertext}`;
+    
+    const url = `http://localhost:7019/api/controladorAPI/validarCedula?cedula=${ciphertext.toString('base64')}`;
 
-    // try {
-    //   const response = await fetch(url);
-    //   const data = await response.text();
-    //   res.send(data);
-    // } catch (error) {
-    //   console.error(error);
-    //   res.status(500).send('Error al realizar la solicitud a la API externa');
-    // }
+    try {
+      const response = await fetch(url);
+      const data = await response.text();
+      res.send(data);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error al realizar la solicitud a la API externa');
+    }
   },
 
   decryptData: async function (req, res) {
     const [decryptResponse] = await client.decrypt({
       name: keyName,
-      ciphertext: ciphertext,
+      ciphertext: "CiQAMHJPkIi8vU4qMy1fB22QYzek3KigEnng+Vdukn0kcLEif/QSLQBh0Rhfw8ylRQVuKWN0029mavdX8wVd9l8qZVKB3eVC1IIrESjmRB59aFI23g==",
     });
 
   
