@@ -6,6 +6,18 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script>
+        function validateInput() {
+            const input = document.getElementById('my-input');
+            const button = document.getElementById('submit-button');
+    
+            if (input.value.length >= 10) {
+                button.disabled = false;
+            } else {
+                button.disabled = true;
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container p-5">
@@ -33,9 +45,9 @@
                     <form method="post" action="/">
                         <div class="form-group">
                             <label for="my-input">Validar cédula</label>
-                            <input id="my-input" class="form-control" type="text" name="cedula" minlength="10">
+                            <input id="my-input" class="form-control" type="text" name="cedula" minlength="10" oninput="validateInput()" required>
                         </div>
-                        <button class="btn btn-success" type="submit">Enviar</button>
+                        <button id="submit-button" class="btn btn-success" type="submit" disabled>Enviar</button>
                     </form>
             </div>
             
