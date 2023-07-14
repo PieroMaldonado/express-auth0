@@ -1,15 +1,11 @@
+require('dotenv').config();
 const mysql = require("mysql");
 const con = mysql.createConnection({
-    // host: 'localhost',
-    // user: 'root',
-    // password: '',
-    // database: 'restaurantdb',
-    // port: 33065
-    host: 'mysql-restaurantdb.alwaysdata.net',
-    user: '295234_user',
-    password: 'D5~a9u&bD6wyT/Va',
-    database: 'restaurantdb_1',
-    port: 3306
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT
 });
 
 con.connect(
