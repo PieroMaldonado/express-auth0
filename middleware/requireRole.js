@@ -3,7 +3,7 @@
 const requireRole = (role) => {
     return (req, res, next) => {
         // Verificar si el usuario tiene el rol requerido
-        if (req.oidc.user && req.oidc.user.rol.includes(role)) {
+        if (req.oidc.user?.rol?.includes(role)) {
             // El usuario tiene el rol requerido, permitir el acceso
             next();
         } else {

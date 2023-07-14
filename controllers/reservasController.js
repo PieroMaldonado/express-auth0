@@ -1,9 +1,9 @@
-var conexion = require('../config/conexion.js');
-var reserva = require('../model/reserva');
-var borrar = require("fs");
+const conexion = require('../config/conexion.js');
+const reserva = require('../model/reserva');
+const borrar = require("fs");
 const { validationResult } = require('express-validator');
-var mesa = require('../model/mesa');
-var cliente = require('../model/cliente');
+const mesa = require('../model/mesa');
+const cliente = require('../model/cliente');
 
 module.exports={
     index:function (req,res){

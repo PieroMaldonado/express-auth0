@@ -1,8 +1,8 @@
-var conexion = require('../config/conexion.js');
-var producto = require('../model/producto');
-var borrar = require("fs");
+const conexion = require('../config/conexion.js');
+const producto = require('../model/producto');
+const borrar = require("fs");
 const { validationResult } = require('express-validator');
-var categoria = require('../model/categoria');
+const categoria = require('../model/categoria');
 
 module.exports={
     index:function (req,res){
@@ -10,7 +10,6 @@ module.exports={
             categoria.obtener(conexion, function(err, datos2){
                 res.render('productos/index', {title: 'Aplicación', req, productos: datos, categorias: datos2});
             })
-            // res.render('productos/index', {title: 'Aplicación', productos: datos});
         });
     },
     crear:function (req,res){

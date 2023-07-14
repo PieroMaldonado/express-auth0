@@ -1,6 +1,6 @@
-var conexion = require('../config/conexion.js');
-var cliente = require('../model/cliente');
-var borrar = require("fs");
+const conexion = require('../config/conexion.js');
+const cliente = require('../model/cliente');
+const borrar = require("fs");
 const { validationResult } = require('express-validator');
 
 module.exports={
@@ -36,7 +36,6 @@ module.exports={
     },
     editar:function(req,res){
         cliente.retornarDatosID(conexion,req.params.id,function(err,registros){
-            //console.log(registros[0]);
             res.render('clientes/editar', {cliente:registros[0]});
         });
     },

@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const clientesController = require("../controllers/clientesController");
 const {body} = require('express-validator');
 const { requiresAuth } = require('express-openid-connect');

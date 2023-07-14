@@ -1,6 +1,6 @@
-var conexion = require('../config/conexion.js');
-var mesa = require('../model/mesa');
-var borrar = require("fs");
+const conexion = require('../config/conexion.js');
+const mesa = require('../model/mesa');
+const borrar = require("fs");
 const { validationResult } = require('express-validator');
 
 module.exports={

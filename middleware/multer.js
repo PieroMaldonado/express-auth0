@@ -1,7 +1,7 @@
-var multer = require('multer');
-var fecha = Date.now();
+const multer = require('multer');
+const fecha = Date.now();
 
-var rutaAlmacen = multer.diskStorage({
+const rutaAlmacen = multer.diskStorage({
     destination:function (request, file, callback){
         callback(null,'./public/images/')
     },
@@ -10,7 +10,7 @@ var rutaAlmacen = multer.diskStorage({
     }
 })
 
-var cargar = multer({ storage:rutaAlmacen,
+const cargar = multer({ storage:rutaAlmacen,
     fileFilter: (req, file, cb) => {
     if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
         cb(null, true);

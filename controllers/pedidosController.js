@@ -1,10 +1,10 @@
-var conexion = require('../config/conexion.js');
-var pedido = require('../model/pedido');
-var borrar = require("fs");
+const conexion = require('../config/conexion.js');
+const pedido = require('../model/pedido');
+const borrar = require("fs");
 const { validationResult } = require('express-validator');
-var reserva = require('../model/reserva');
-var producto = require('../model/producto');
-var cliente = require('../model/cliente');
+const reserva = require('../model/reserva');
+const producto = require('../model/producto');
+const cliente = require('../model/cliente');
 
 module.exports={
     index:function (req,res){
@@ -55,7 +55,6 @@ module.exports={
     },
     editar:function(req,res){
         pedido.retornarDatosID(conexion,req.params.id,function(err,registros){
-            //console.log(registros[0]);
             res.render('pedidos/editar', {pedido:registros[0]});
         });
     },

@@ -1,15 +1,15 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var moment = require('moment'); 
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const moment = require('moment'); 
 const cookieSession = require('cookie-session');
 const flash = require('connect-flash');
 const session = require('express-session');
 const { auth, requiresAuth } = require('express-openid-connect');
 const indexController = require("./controllers/indexController");
-var app = express();
+const app = express();
 
 const port = process.env.Port || 4000; // 
 app.set('port', port);
@@ -29,15 +29,15 @@ app.use(auth(config));
 // Ruta para la vista home del authRouter
 app.get('/home', requiresAuth(), indexController.home);
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var mesasRouter = require('./routes/mesas');
-var clientesRouter = require('./routes/clientes');
-var productosRouter = require('./routes/productos');
-var categoriasRouter = require('./routes/categorias');
-var reservasRouter = require('./routes/reservas');
-var pedidosRouter = require('./routes/pedidos');
-var estadisticasRouter = require('./routes/estadisticas');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const mesasRouter = require('./routes/mesas');
+const clientesRouter = require('./routes/clientes');
+const productosRouter = require('./routes/productos');
+const categoriasRouter = require('./routes/categorias');
+const reservasRouter = require('./routes/reservas');
+const pedidosRouter = require('./routes/pedidos');
+const estadisticasRouter = require('./routes/estadisticas');
 
 app.listen(port, () => {
   console.log(`Servidor iniciado en el puerto ${port}`);
@@ -51,7 +51,6 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// app.use(bodyParser.urlencoded({ extends: false}));
 // Con esto tendremos disponible moment.js en toda la aplicación
 app.locals.moment = require('moment'); 
 app.use(flash());
@@ -67,11 +66,9 @@ app.use(session({
   saveUninitialized: false
 }));
 
-// app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-// app.use('/', authRouter);
 app.use('/users', usersRouter);
 app.use('/mesas', mesasRouter);
 app.use('/clientes', clientesRouter);

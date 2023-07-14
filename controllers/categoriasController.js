@@ -1,6 +1,6 @@
-var conexion = require('../config/conexion.js');
-var categoria = require('../model/categoria');
-var borrar = require("fs");
+const conexion = require('../config/conexion.js');
+const categoria = require('../model/categoria');
+const borrar = require("fs");
 const { validationResult } = require('express-validator');
 
 module.exports={
@@ -36,7 +36,6 @@ module.exports={
     },
     editar:function(req,res){
         categoria.retornarDatosID(conexion,req.params.id,function(err,registros){
-            //console.log(registros[0]);
             res.render('categorias/editar', {categoria:registros[0]});
         });
     },
