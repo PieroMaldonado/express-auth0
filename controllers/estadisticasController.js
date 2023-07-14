@@ -78,99 +78,44 @@ module.exports={
               const datosMesas = await obtenerDatosMesas();
               const datosClientes = await obtenerDatosClientes();
           
-              // PRODUCTOS MÁS PEDIDOS
-              let agrupado = datosPedidos.reduce((accum, row) => {
-                let { productoID: id } = row;
-                accum[id] = accum[id] || { id, total: 0 };
-                accum[id].total++;
-                return accum;
-              }, {});
-          
+              let agrupado = agruparPedidos(datosPedidos);
               let data = Object.values(agrupado);
-              data.sort((a, b) => {
-                if (a.total > b.total) {
-                  return -1;
-                }
-                if (a.total < b.total) {
-                  return 1;
-                }
-              });
+              ordenarPorTotal(data);
           
-              // PRODUCTOS QUE MÁS INGRESOS GENERARON
               let precios = [];
               Object.values(datosProductos).forEach((val) => {
-                if (data.find((item) => item.id === val.id)) {
-                  let item = data.find((item) => item.id == val.id);
+                let item = data.find((item) => item.id == val.id);
+                if (item) {
                   let precio = val.precio * item.total;
-                  let objeto = { item, precio };
-                  precios.push(objeto);
+                  precios.push({ item, precio });
                 }
               });
           
-              precios.sort((a, b) => {
-                if (a.precio > b.precio) {
-                  return -1;
-                }
-                if (a.precio < b.precio) {
-                  return 1;
-                }
-              });
+              precios.sort((a, b) => b.precio - a.precio);
           
-              // Mesas menos reservadas
-              let mesasAgrupado = datosReservas.reduce((accum, row) => {
-                let { mesaID: id } = row;
-                accum[id] = accum[id] || { id, total: 0 };
-                accum[id].total++;
-                return accum;
-              }, {});
-          
+              let mesasAgrupado = agruparReservasPorMesa(datosReservas);
               let data2 = Object.values(mesasAgrupado);
-              data2.sort((a, b) => {
-                if (a.total < b.total) {
-                  return -1;
-                }
-                if (a.total > b.total) {
-                  return 1;
-                }
-              });
+              data2.sort((a, b) => a.total - b.total);
           
-              // Cantidad de reservas solicitada por cliente
-              let agrupado2 = datosReservas.reduce((accum, row) => {
-                let { clienteID: id } = row;
-                accum[id] = accum[id] || { id, total: 0 };
-                accum[id].total++;
-                return accum;
-              }, {});
-          
+              let agrupado2 = agruparReservasPorCliente(datosReservas);
               let data3 = Object.values(agrupado2);
           
               let clientes = [];
               Object.values(datosReservas).forEach((val) => {
-                if (data3.find((item) => item.id === val.clienteID)) {
-                  let item = data3.find((item) => item.id === val.clienteID);
+                let item = data3.find((item) => item.id === val.clienteID);
+                if (item) {
                   let clienteID = val.clienteID;
                   let fecha = val.fecha;
-                  let objeto = { item, clienteID, fecha };
-                  clientes.push(objeto);
+                  clientes.push({ item, clienteID, fecha });
                 }
               });
           
-              clientes.sort((a, b) => {
-                if (a.item.total > b.item.total) {
-                  return -1;
-                }
-                if (a.item.total < b.item.total) {
-                  return 1;
-                }
-              });
+              clientes.sort((a, b) => b.item.total - a.item.total);
           
               let fechaFiltro = req.body.fecha;
-          
-              let resultProductData = clientes.filter((a) => {
-                let fecha = moment(a.fecha).utc().format('YYYY-MM-DD');
-                return fecha === fechaFiltro;
-              });
-              console.log(resultProductData);
+              let resultProductData = clientes.filter(
+                (a) => moment(a.fecha).utc().format('YYYY-MM-DD') === fechaFiltro
+              );
           
               res.render('estadisticas/index', {
                 cantidadReservas: resultProductData,
@@ -185,7 +130,7 @@ module.exports={
               // Manejo de errores aquí
             }
           };
-          
+           
           main();
           
     },
