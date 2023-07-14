@@ -9,7 +9,8 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const { auth, requiresAuth } = require('express-openid-connect');
 const indexController = require("./controllers/indexController");
-const app = express();
+let app = express();
+app.disable("x-powered-by");
 
 const port = process.env.Port || 4000; // 
 app.set('port', port);
